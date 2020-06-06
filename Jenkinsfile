@@ -3,15 +3,9 @@ pipeline {
     stages {
         stage('Lint') {
             steps {
-                script{
-                    withPythonEnv('testenv'){
-                        sh 'pip install pylint'
-                        sh 'pylint --disable=R,C,W1203,E1120 app.py'
-                    }
-                }
                 sh 'echo "Linting dockerfile"'
                 sh 'hadolint-Linux-x86-64 Dockerfile'
-                //sh '/usr/local/bin/pylint --disable=R,C,W1203,E1120 app.py'                
+                sh '/usr/local/bin/pylint --disable=R,C,W1203,E1120 app.py'                
             }
         }
 
