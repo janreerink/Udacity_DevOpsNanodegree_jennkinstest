@@ -7,7 +7,7 @@ pipeline {
                 sh 'hadolint-Linux-x86-64 Dockerfile'
                 
                 dir('/home/ubuntu/'){
-                    sh 'source ~/.devops/bin/activate'
+                    //sh 'source ~/.devops/bin/activate'
                     sh 'pylint --disable=R,C,W1203,E1120 app.py'                
                 }
             }
