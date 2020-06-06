@@ -4,7 +4,7 @@ pipeline {
         stage('Lint dockerfile') {
             steps {
                 sh 'echo "Linting dockerfile"'
-                sh './hadolint-Linux-x86-64 Dockerfile'
+                sh 'hadolint-Linux-x86-64 Dockerfile'
                 sh 'pylint --disable=R,C,W1203,E1120 app.py'                
             }
         }
