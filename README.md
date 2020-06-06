@@ -25,56 +25,25 @@ The Quickstart Template provisions one EC2 instance as bastion host to the EKS c
 
 ### Link github project in Jenkins, add credentials
 - Connect git to jenkins (preferably using github access token) to build pipeline. Change pipeline to check repo for changes every 2 minutes.
-- In Jenkins credentials menu select global, aws from dropdown and use key generated in AWS IAM
+- In Jenkins credentials menu add dockerhub credentials for pipeline
 
 ## Install hadolint
 - `wget https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64`
+- `mv hadolint-Linux-x86_64 hadolint`
 - `chmod +x hadolint`
 - `export hadolint`
 
 
 ## Install docker CE on bastion host
-sudo yum install -y yum-utils
+- `sudo amazon-linux-extras install docker`
 
-sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-
-sudo yum install docker-ce docker-ce-cli containerd.io
-
-
-- ``
-- ``
-- ``
-
-## test eksctl 
-- `eksctl`
- 
+Alternatively set up new bastion host based on ubuntu (set VPC, publicsubnet1, IAM role and security group)
+- Install aws authenticator
+- Copy and export kubectl config
+- export KUBECONFIG=./test.conf   
+- Install docker
 
 
-## Docker image manual 
-Use bastion host to test manual building and deployment of image
-
-### Set up a conda environment and build the docker image:
-
-- `conda create --name py37a python=3.7.2` 
-- `activate py37a`
-- `pip install pylint`
-- `docker build -t jansdockerhub/streamlit .`
-
-### Testing docker container locally:
-`docker run -d --name streamlit -p 127.0.0.1:8080:8501 jansdockerhub/streamlit`
-
-
-### Upload docker image:
-- `dockerpath=jansdockerhub/streamlit`
-- `echo "Docker ID and Image: $dockerpath"`
-- `docker login &&\ docker image tag streamlit $dockerpath`
-- `docker push $dockerpath`
-
-### Deploy image manually to EKS
-Test deployment from bastion host of dockerhub image to EKS.
-- ``
 
 ## Use jenkins pipeline to deploy
 Jenkinsfile contains a pipeline that:
@@ -88,20 +57,4 @@ Jenkinsfile contains a pipeline that:
 
 
 
-
-
-dockerpath=jansdockerhub/mlapp
-
-# Step 2
-# Run the Docker Hub container with kubernetes
-#minikubectl run mlapp --image=$dockerpath --port=80 
-kubectl create deployment mlapp --image=$dockerpath
-kubectl expose deployment mlapp --type=LoadBalancer --port=80
-# Step 3:
-# List kubernetes pods
-kubectl get pods
-
-# Step 4:
-# Forward the container port to a host
-kubectl port-forward deployment/mlapp 8000:80
 

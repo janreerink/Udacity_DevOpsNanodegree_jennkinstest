@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh 'echo "Linting dockerfile"'
                 sh 'hadolint Dockerfile'
+                sh 'pylint --disable=R,C,W1203,E1120 app.py'                
             }
         }
 
@@ -14,10 +15,10 @@ pipeline {
                 sh 'echo "building and pushing docker image"'
 
                 script {
-                    def customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
-                    customImage.push('latest')
-                }
-                    
+                    withDockerRegistry(credentialsId: 'jenkinscred', url: '') {
+                        def customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
+                        customImage.push('latest')
+                    }
             }
         }
 
