@@ -5,7 +5,8 @@ pipeline {
             steps {
                 sh 'echo "Linting dockerfile"'
                 sh 'hadolint-Linux-x86-64 Dockerfile'
-                sh '/home/ubuntu/.local/bin/pylint --disable=R,C,W1203,E1120 app.py'                
+                sh 'source ~/.devops/bin/activate'
+                sh 'pylint --disable=R,C,W1203,E1120 app.py'                
             }
         }
 
