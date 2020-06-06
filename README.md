@@ -31,7 +31,8 @@ The Quickstart Template provisions one EC2 instance as bastion host to the EKS c
 - `wget https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64`
 - `mv hadolint-Linux-x86_64 hadolint`
 - `chmod +x hadolint`
-- `export hadolint`
+- `sudo cp hadolint-Linux-x86-64 /usr/local/bin/`
+- `export PATH=$PATH:/usr/local/bin/hadolint-Linux-x86-64`
 
 
 ## Install docker CE on bastion host
