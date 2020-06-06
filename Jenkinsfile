@@ -19,6 +19,7 @@ pipeline {
                         def customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
                         customImage.push('latest')
                     }
+                }
             }
         }
 
