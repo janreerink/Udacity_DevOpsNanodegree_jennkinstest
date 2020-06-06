@@ -4,7 +4,8 @@ pipeline {
         stage('Lint') {
             steps {
                 script{
-                    withPythonEnv('/home/ubuntu/.devops/bin'){
+                    withPythonEnv('testenv'){
+                        sh 'pip install pylint'
                         sh 'pylint --disable=R,C,W1203,E1120 app.py'
                     }
                 }
