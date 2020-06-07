@@ -1,7 +1,4 @@
 pipeline {
-    environment {
-        def customImage
-    }
     agent any
     stages {
         stage('Lint') {
@@ -14,8 +11,10 @@ pipeline {
 
         stage('Build image') {
             steps {
-                customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
-                customImage.push('latest')
+                script {
+                    def customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
+                    customImage.push('latest')
+                }
             }
         }
 
