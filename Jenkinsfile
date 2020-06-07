@@ -6,6 +6,7 @@ pipeline {
         stage('Deploy image') {
             steps {
                 //sh "/usr/bin//kubectl cluster-info"
+                sh "echo $KUBECONFIG"
                 sh "kubectl version"
                 sh "kubectl get nodes"
                 //sh "kubectl run nginx  --replicas=2 --labels='app=nginx' --image=nginx --port=80"
