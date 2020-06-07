@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     def customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
-                    customImage.push('latest')
+                    //customImage.push('latest')
 
                     withDockerRegistry([ credentialsId: "jenkinscred", url: "" ]) {
                         customImage.push()
