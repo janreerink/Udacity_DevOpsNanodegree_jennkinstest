@@ -14,6 +14,10 @@ pipeline {
                 script {
                     def customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
                     customImage.push('latest')
+
+                    docker.withRegistry('https://registry-1.docker.io/v2/', 'docker-hub-credentials') {
+                        customImage.push()
+                    }
                 }
             }
         }
