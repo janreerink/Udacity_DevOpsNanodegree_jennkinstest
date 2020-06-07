@@ -11,9 +11,8 @@ pipeline {
 
         stage('Build image') {
             steps {
-                def dockerImage    
-                dockerImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
-                dockerImage.push()
+                def customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
+                customImage.push('latest')
             }
         }
 
