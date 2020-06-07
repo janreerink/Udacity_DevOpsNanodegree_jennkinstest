@@ -24,10 +24,11 @@ pipeline {
 
         stage('Deploy image') {
             steps {
-                
-                sh "kubectl run nginx  --replicas=2 --labels='app=nginx' --image=nginx --port=80"
-                //sh "kubectl run streaml --labels='app=streamlit-test' --image=jansdockerhub/streamlit-test:${env.BUILD_ID} --port=8501"
-                //sh 'kubectl create -f loadbalancer.yaml'
+                //sh "/usr/bin//kubectl cluster-info"
+                sh "kubectl get svc"
+                //sh "kubectl run nginx  --replicas=2 --labels='app=nginx' --image=nginx --port=80"
+                sh "/usr/bin//kubectl run streaml --labels='app=streamlit-test' --image=jansdockerhub/streamlit-test:${env.BUILD_ID} --port=8501"
+                sh '/usr/bin//kubectl create -f loadbalancer.yaml'
                 //kubectl get service/strlit-service |  awk {'print $1" " $2 " " $4 " " $5'} | column -t
             }
         }
