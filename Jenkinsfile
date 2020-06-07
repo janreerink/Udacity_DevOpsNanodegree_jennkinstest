@@ -25,7 +25,7 @@ pipeline {
         stage('Deploy image') {
             steps {
                 //sh "/usr/bin//kubectl cluster-info"
-                sh "kubectl get svc"
+                sh "kubectl get nodes"
                 //sh "kubectl run nginx  --replicas=2 --labels='app=nginx' --image=nginx --port=80"
                 sh "kubectl run streaml --labels='app=streamlit-test' --image=jansdockerhub/streamlit-test:${env.BUILD_ID} --port=8501"
                 sh 'kubectl create -f loadbalancer.yaml'
