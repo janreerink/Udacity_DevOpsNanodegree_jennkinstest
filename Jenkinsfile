@@ -14,14 +14,20 @@ pipeline {
             steps {
                 sh 'echo "building and pushing docker image"'
 
-                script {
-                    withDockerRegistry(credentialsId: 'jenkinscred', url: '') {
-                        def customImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
-                        customImage.push('latest')
-                    }
+                def dockerImage
+
+                stage('Build image') {
+                    dockerImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
                 }
+
+                stage('Push image') {
+                    dockerImage.push()
+                }   
+              
+
             }
         }
+
 
 
         stage('Deploy image') {
