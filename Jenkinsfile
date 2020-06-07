@@ -15,6 +15,7 @@ pipeline {
                 dockerImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
                 dockerImage.push()
             }
+        }
 
         stage('Deploy image') {
             steps {
