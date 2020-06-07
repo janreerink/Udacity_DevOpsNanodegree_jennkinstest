@@ -1,6 +1,8 @@
 pipeline {
     agent any
     stages {
+        def dockerImage
+
         stage('Lint') {
             steps {
                 sh 'echo "Linting dockerfile"'
@@ -9,26 +11,13 @@ pipeline {
             }
         }
 
-
         stage('Build image') {
-            steps {
-                sh 'echo "building and pushing docker image"'
-
-                def dockerImage
-
-                stage('Build image') {
-                    dockerImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
-                }
-
-                stage('Push image') {
-                    dockerImage.push()
-                }   
-              
-
-            }
+            dockerImage = docker.build("jansdockerhub/streamlit-test:${env.BUILD_ID}")
         }
 
-
+        stage('Push image') {
+            dockerImage.push()
+        }   
 
         stage('Deploy image') {
             steps {
