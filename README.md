@@ -48,13 +48,12 @@ Alternatively set up new bastion host based on ubuntu (set VPC, publicsubnet1, I
 
 ## Use jenkins pipeline to deploy
 Jenkinsfile contains a pipeline that:
-- performs a linting step
+- performs a linting step of the Dockerfile and the python script.
     - todo: screenshot failed linting
     - todo: screenshot succesful linting
-- builds a docker container
-- pushes container to dockerhub
-- uploads the docker image to the eks cluster
-    - screenshot succesful pipeline run
+- builds an image and pushes it to dockerhub
+- runs the docker image on the eks cluster
+    - to do: screenshot succesful pipeline run
 
 
 
